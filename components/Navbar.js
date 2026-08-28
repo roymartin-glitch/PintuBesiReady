@@ -46,21 +46,43 @@ function NavbarContent() {
 
   useEffect(() => {
     async function getUser() {
-      const { data: { user: currentUser } } = await supabase.auth.getUser()
-      if (currentUser) {
-        setUser(currentUser)
-        const { data: currentProfile } = await supabase
-          .from('profiles')
-          .select('full_name, role')
-          .eq('id', currentUser.id)
-          .single()
-        setProfile(currentProfile)
+      try {
+        const { data: { user: currentUser }, error } = await supabase.auth.getUser()
+        
+        if (error) {
+          console.error('❌ Navbar auth error:', error)
+          return
+        }
+
+        if (currentUser) {
+          console.log('✅ User detected in Navbar:', currentUser.email)
+          setUser(currentUser)
+          
+          const { data: currentProfile, error: profileError } = await supabase
+            .from('profiles')
+            .select('full_name, role')
+            .eq('id', currentUser.id)
+            .single()
+          
+          if (profileError) {
+            console.error('❌ Profile fetch error:', profileError)
+          } else {
+            console.log('✅ Profile loaded:', currentProfile)
+            setProfile(currentProfile)
+          }
+        } else {
+          console.log('ℹ️ No user logged in')
+        }
+      } catch (err) {
+        console.error('❌ Navbar getUser error:', err)
       }
     }
     getUser()
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('🔄 Auth state changed:', event, session?.user?.email)
+      
       if (session?.user) {
         setUser(session.user)
         const { data: currentProfile } = await supabase
