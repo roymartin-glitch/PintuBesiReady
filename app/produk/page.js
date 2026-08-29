@@ -17,7 +17,7 @@ export default async function ProductsCatalogPage({ searchParams }) {
   const inStock = searchParams.in_stock === 'true'
 
   // Fetch all categories for filter
-  const { data: categories } = await supabase
+  const { data: categories, error: catError } = await supabase
     .from('categories')
     .select('id, name, slug')
     .order('name')
@@ -60,7 +60,7 @@ export default async function ProductsCatalogPage({ searchParams }) {
     query = query.order('created_at', { ascending: false })
   }
 
-  const { data: products } = await query
+  const { data: products, error: prodError } = await query
 
   return (
     <>
@@ -68,6 +68,20 @@ export default async function ProductsCatalogPage({ searchParams }) {
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         
+        {/* Error display for debugging production database issues */}
+        {prodError && (
+          <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-2xl mb-6 text-sm">
+            <h4 className="font-bold mb-1">⚠️ Error Fetching Products:</h4>
+            <p className="font-mono text-xs">{prodError.message} ({prodError.code || 'No code'})</p>
+          </div>
+        )}
+        {catError && (
+          <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-2xl mb-6 text-sm">
+            <h4 className="font-bold mb-1">⚠️ Error Fetching Categories:</h4>
+            <p className="font-mono text-xs">{catError.message} ({catError.code || 'No code'})</p>
+          </div>
+        )}
+
         {/* Title Section */}
         <div className="mb-8 border-b border-slate-200/80 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
