@@ -2,7 +2,7 @@
 
 import { createClient } from '@/lib/supabase/client'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, Suspense } from 'react'
+import { useState, Suspense, useEffect } from 'react'
 import Link from 'next/link'
 
 function LoginForm() {
@@ -16,30 +16,48 @@ function LoginForm() {
   })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [checkingSession, setCheckingSession] = useState(true)
 
   const redirectTo = searchParams.get('redirect') || '/'
+
+  // Check if user is already logged in
+  useEffect(() => {
+    async function checkSession() {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session) {
+        // User already logged in, redirect
+        router.replace(redirectTo)
+      } else {
+        setCheckingSession(false)
+      }
+    }
+    checkSession()
+  }, [])
 
   async function handleLogin(e) {
     e.preventDefault()
     setLoading(true)
     setError('')
 
-    const { data, error: signInError } = await supabase.auth.signInWithPassword({
-      email: form.email,
-      password: form.password,
-    })
+    try {
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email: form.email,
+        password: form.password,
+      })
 
-    if (signInError) {
+      if (signInError) throw signInError
+
+      if (data?.session) {
+        console.log('✅ User berhasil login:', data.user.email)
+        // Redirect ke halaman yang diminta
+        router.push(redirectTo)
+        router.refresh()
+      }
+    } catch (err) {
+      console.error('Login error:', err)
+      setError(err.message || 'Email atau password salah')
       setLoading(false)
-      setError(signInError.message)
-      return
     }
-
-    console.log('✅ User berhasil login:', data.user.email)
-
-    // Redirect ke halaman yang diminta
-    router.push(redirectTo)
-    router.refresh()
   }
 
   async function handleGoogleSignIn() {
@@ -62,7 +80,10 @@ function LoginForm() {
 
   return (
     <main className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-slate-50 to-slate-100">
-      <div className="max-w-md w-full bg-white rounded-3xl shadow-xl border border-slate-200/60 p-8">
+      {checkingSession ? (
+        <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+      ) : (
+        <div className="max-w-md w-full bg-white rounded-3xl shadow-xl border border-slate-200/60 p-8">
         
         {/* Link ke Beranda */}
         <div className="mb-6 text-center">
@@ -162,6 +183,7 @@ function LoginForm() {
           <Link href="/" className="text-blue-600 hover:underline">Kebijakan Privasi</Link>
         </div>
       </div>
+      )}
     </main>
   )
 }
