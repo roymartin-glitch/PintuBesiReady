@@ -36,7 +36,7 @@ function RegisterForm() {
       }
     }
     checkSession()
-  }, [])
+  }, [router, redirectTo, supabase])
 
   async function handleRegister(e) {
     e.preventDefault()

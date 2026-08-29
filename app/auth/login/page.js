@@ -32,7 +32,7 @@ function LoginForm() {
       }
     }
     checkSession()
-  }, [])
+  }, [router, redirectTo, supabase])
 
   async function handleLogin(e) {
     e.preventDefault()

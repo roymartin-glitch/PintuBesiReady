@@ -25,7 +25,7 @@ export default async function ProductsCatalogPage({ searchParams }) {
   // Build query
   let query = supabase
     .from('products')
-    .select('id, name, slug, price, original_price, stock, size, material, is_active, product_images(image_url, is_primary)')
+    .select('id, name, slug, price, discount_price, discount_percentage, stock, size, material, is_active, product_images(image_url, is_primary)')
     .eq('is_active', true)
 
   // Apply search query
@@ -179,9 +179,9 @@ export default async function ProductsCatalogPage({ searchParams }) {
                     product.product_images?.[0]?.image_url
 
                   const discount =
-                    product.original_price && product.original_price > product.price
-                      ? Math.round(((product.original_price - product.price) / product.original_price) * 100)
-                      : 0
+                    product.discount_price && product.discount_price > product.price
+                      ? Math.round(((product.discount_price - product.price) / product.discount_price) * 100)
+                      : product.discount_percentage || 0
 
                   return (
                     <Link
@@ -230,9 +230,9 @@ export default async function ProductsCatalogPage({ searchParams }) {
 
                         <div className="mt-4 pt-3 border-t border-slate-100 flex items-end justify-between">
                           <div>
-                            {product.original_price && product.original_price > product.price && (
+                            {product.discount_price && product.discount_price > product.price && (
                               <p className="text-[10px] text-slate-400 line-through">
-                                Rp {Number(product.original_price).toLocaleString('id-ID')}
+                                Rp {Number(product.discount_price).toLocaleString('id-ID')}
                               </p>
                             )}
                             <p className="font-black text-slate-900 text-xs sm:text-sm md:text-base">
