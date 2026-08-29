@@ -187,21 +187,21 @@ export default async function ProductsCatalogPage({ searchParams }) {
                     <Link
                       key={product.id}
                       href={`/produk/${product.slug}`}
-                      className="border border-slate-200/60 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col bg-white relative group"
+                      className="border border-slate-200/60 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col bg-white relative group cursor-pointer"
                     >
                       {/* Discount Badge */}
                       {discount > 0 && (
-                        <span className="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-lg z-10 shadow-md">
+                        <span className="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-lg z-10 shadow-md pointer-events-none">
                           -{discount}%
                         </span>
                       )}
 
-                      <div className="aspect-square bg-slate-50 relative overflow-hidden flex items-center justify-center">
+                      <div className="aspect-square bg-slate-50 relative overflow-hidden flex items-center justify-center cursor-pointer">
                         {primaryImage ? (
                           <img
                             src={primaryImage}
                             alt={product.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                            className="w-full h-full object-cover group-hover:scale-105 transition duration-300 cursor-pointer"
                           />
                         ) : (
                           <div className="text-slate-300 text-center">
@@ -210,9 +210,20 @@ export default async function ProductsCatalogPage({ searchParams }) {
                           </div>
                         )}
 
+                        {/* Hover Overlay - Lihat Detail */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center pb-4 pointer-events-none">
+                          <span className="text-white text-xs font-bold flex items-center gap-1">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            Lihat Detail
+                          </span>
+                        </div>
+
                         {/* Out of Stock Overlay */}
                         {product.stock <= 0 && (
-                          <div className="absolute inset-0 bg-white/80 backdrop-blur-[1px] flex items-center justify-center z-10">
+                          <div className="absolute inset-0 bg-white/80 backdrop-blur-[1px] flex items-center justify-center z-10 pointer-events-none">
                             <span className="bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow">
                               Stok Habis
                             </span>
@@ -240,7 +251,7 @@ export default async function ProductsCatalogPage({ searchParams }) {
                             </p>
                           </div>
                           
-                          <span className={`text-[10px] px-2 py-1 rounded-lg font-bold shadow-sm ${product.stock > 0 ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                          <span className={`text-[10px] px-2 py-1 rounded-lg font-bold shadow-sm ${product.stock > 0 ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'} pointer-events-none`}>
                             {product.stock > 0 ? 'Ready' : 'Habis'}
                           </span>
                         </div>
