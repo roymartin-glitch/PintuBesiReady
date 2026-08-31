@@ -75,7 +75,7 @@ export default function ImageCarousel({ slides = [], autoPlayMs = 4000 }) {
                     >
                         <img
                             src={slide.image}
-                            alt={slide.title || `Slide ${idx + 1}`}
+                            alt={slide.title || slide.subtitle || `Slide promosi ${idx + 1} - ${slide.productName || 'Pintu Besi Shop'}`}
                             className="absolute inset-0 w-full h-full object-cover"
                             loading={idx === 0 ? 'eager' : 'lazy'}
                         />

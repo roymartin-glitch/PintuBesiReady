@@ -228,7 +228,7 @@ export default async function HomePage() {
                       {primaryImage ? (
                         <img
                           src={primaryImage}
-                          alt={product.name}
+                          alt={`${product.name} - ${product.size || 'Pintu Besi'}`}
                           className="w-full h-full object-cover group-hover:scale-110 transition-smooth duration-500 cursor-pointer"
                         />
                       ) : (

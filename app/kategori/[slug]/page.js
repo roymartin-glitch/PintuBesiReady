@@ -20,6 +20,20 @@ export async function generateMetadata({ params }) {
   return {
     title: `Jual Pintu Besi ${category.name} Premium | Pintu Besi Shop`,
     description: `Temukan koleksi lengkap ${category.name} premium berkualitas tinggi. Material kokoh, pengerjaan presisi, awet, dan bergaransi resmi.`,
+    canonical: `https://pintu-besi-shop.vercel.app/kategori/${params.slug}`,
+    openGraph: {
+      title: `Jual Pintu Besi ${category.name} Premium | Pintu Besi Shop`,
+      description: `Temukan koleksi lengkap ${category.name} premium berkualitas tinggi.`,
+      url: `https://pintu-besi-shop.vercel.app/kategori/${params.slug}`,
+      type: 'website',
+      locale: 'id_ID',
+      siteName: 'Pintu Besi Shop',
+    },
+    twitter: {
+      card: 'summary',
+      title: `Jual Pintu Besi ${category.name} Premium | Pintu Besi Shop`,
+      description: `Temukan koleksi lengkap ${category.name} premium berkualitas tinggi.`,
+    },
   }
 }
 
@@ -105,7 +119,7 @@ export default async function CategoryPage({ params }) {
                     {primaryImage ? (
                       <img
                         src={primaryImage}
-                        alt={product.name}
+                        alt={`${product.name} - ${product.size || ''} ${product.material || ''}`}
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                       />
                     ) : (

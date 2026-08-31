@@ -59,7 +59,7 @@ export default function ProductGallery({ images, name }) {
         >
           <img 
             src={activeImage} 
-            alt={name} 
+            alt={`${name} - Foto produk utama`}
             className="w-full h-full object-cover group-hover:scale-105 transition duration-300" 
           />
           

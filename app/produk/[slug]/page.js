@@ -10,7 +10,7 @@ export async function generateMetadata({ params }) {
   const supabase = createClient()
   const { data: product } = await supabase
     .from('products')
-    .select('name, description')
+    .select('name, description, product_images(image_url, is_primary)')
     .eq('slug', params.slug)
     .single()
 
@@ -20,9 +20,38 @@ export async function generateMetadata({ params }) {
     }
   }
 
+  const primaryImage =
+    product.product_images?.find((img) => img.is_primary)?.image_url ||
+    product.product_images?.[0]?.image_url
+
   return {
     title: `${product.name} Premium | Pintu Besi Shop`,
     description: product.description || `Beli ${product.name} premium berkualitas tinggi dengan pengerjaan presisi dan besi tebal. Tahan cuaca, bergaransi resmi.`,
+    canonical: `https://pintu-besi-shop.vercel.app/produk/${params.slug}`,
+    openGraph: {
+      title: `${product.name} Premium | Pintu Besi Shop`,
+      description: product.description || `Beli ${product.name} berkualitas tinggi dari Pintu Besi Shop`,
+      url: `https://pintu-besi-shop.vercel.app/produk/${params.slug}`,
+      type: 'website',
+      locale: 'id_ID',
+      siteName: 'Pintu Besi Shop',
+      images: primaryImage
+        ? [
+            {
+              url: primaryImage,
+              width: 1200,
+              height: 630,
+              alt: product.name,
+            },
+          ]
+        : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${product.name} Premium | Pintu Besi Shop`,
+      description: product.description || `Beli ${product.name} berkualitas tinggi dari Pintu Besi Shop`,
+      images: primaryImage ? [primaryImage] : [],
+    },
   }
 }
 
@@ -32,7 +61,7 @@ export default async function ProductDetailPage({ params }) {
   // Fetch product
   const { data: product } = await supabase
     .from('products')
-    .select('*, product_images(image_url, is_primary), categories(name)')
+    .select('*, product_images(image_url, is_primary), categories(name, slug)')
     .eq('slug', params.slug)
     .eq('is_active', true)
     .single()
@@ -53,9 +82,91 @@ export default async function ProductDetailPage({ params }) {
       ? Math.round(((product.discount_price - product.price) / product.discount_price) * 100)
       : product.discount_percentage || 0
 
+  // Generate JSON-LD Product Schema
+  const primaryImage =
+    product.product_images?.find((img) => img.is_primary)?.image_url ||
+    product.product_images?.[0]?.image_url
+
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description || `Produk ${product.name} premium berkualitas tinggi`,
+    image: primaryImage || 'https://pintu-besi-shop.vercel.app/default-product.png',
+    sku: product.id,
+    brand: {
+      '@type': 'Brand',
+      name: 'Pintu Besi Shop',
+    },
+    offers: {
+      '@type': 'Offer',
+      url: `https://pintu-besi-shop.vercel.app/produk/${params.slug}`,
+      priceCurrency: 'IDR',
+      price: product.price.toString(),
+      availability: product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+      seller: {
+        '@type': 'Organization',
+        name: 'Pintu Besi Shop',
+      },
+    },
+  }
+
+  // Generate JSON-LD Breadcrumb Schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Beranda',
+        item: 'https://pintu-besi-shop.vercel.app',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Katalog',
+        item: 'https://pintu-besi-shop.vercel.app/produk',
+      },
+      ...(product.categories?.slug
+        ? [
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: product.categories.name,
+              item: `https://pintu-besi-shop.vercel.app/kategori/${product.categories.slug}`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 4,
+              name: product.name,
+              item: `https://pintu-besi-shop.vercel.app/produk/${params.slug}`,
+            },
+          ]
+        : [
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: product.name,
+              item: `https://pintu-besi-shop.vercel.app/produk/${params.slug}`,
+            },
+          ]),
+    ],
+  }
+
   return (
     <>
       <Navbar />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+        suppressHydrationWarning
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        suppressHydrationWarning
+      />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1">
         
@@ -180,7 +291,7 @@ export default async function ProductDetailPage({ params }) {
                       {imgUrl ? (
                         <img
                           src={imgUrl}
-                          alt={p.name}
+                          alt={`${p.name} - ${p.size || ''}`}
                           className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                         />
                       ) : (
