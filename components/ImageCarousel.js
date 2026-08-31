@@ -71,7 +71,7 @@ export default function ImageCarousel({ slides = [], autoPlayMs = 4000 }) {
                     <Link
                         key={idx}
                         href={slide.link || '#'}
-                        className="relative w-full shrink-0 aspect-[16/7] sm:aspect-[21/8] bg-slate-900"
+                        className="relative w-full shrink-0 aspect-[9/12] sm:aspect-[21/8] bg-slate-900"
                     >
                         <img
                             src={slide.image}
