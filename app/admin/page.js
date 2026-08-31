@@ -58,7 +58,7 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-8 flex-1 flex flex-col animate-fade-in">
-      
+
       {/* Page Title */}
       <div className="space-y-2">
         <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
@@ -70,7 +70,7 @@ export default async function AdminDashboardPage() {
 
       {/* Metrics Statistics Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        
+
         {/* Metric 1: Revenue */}
         <div className="card-premium p-6 flex flex-col justify-between min-h-[140px] hover-lift group overflow-hidden relative">
           <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-transparent rounded-full blur-2xl group-hover:scale-150 transition-smooth"></div>
@@ -123,11 +123,10 @@ export default async function AdminDashboardPage() {
         </div>
 
         {/* Metric 4: Low Stock warning */}
-        <div className={`p-6 flex flex-col justify-between min-h-[140px] hover-lift group overflow-hidden relative rounded-2xl shadow-premium border transition-smooth ${
-          lowStockProducts > 0 
-            ? 'bg-gradient-to-br from-red-50 to-orange-50 border-red-200/60' 
+        <div className={`p-6 flex flex-col justify-between min-h-[140px] hover-lift group overflow-hidden relative rounded-2xl shadow-premium border transition-smooth ${lowStockProducts > 0
+            ? 'bg-gradient-to-br from-red-50 to-orange-50 border-red-200/60'
             : 'bg-white border-slate-200/60'
-        }`}>
+          }`}>
           <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-red-500/10 to-transparent rounded-full blur-2xl group-hover:scale-150 transition-smooth"></div>
           <div className="space-y-2 relative z-10">
             <div className="flex items-center gap-2">
@@ -156,7 +155,7 @@ export default async function AdminDashboardPage() {
             </h3>
             <p className="text-slate-500 text-xs mt-1">5 pesanan masuk terakhir dalam antrean</p>
           </div>
-          <Link 
+          <Link
             href="/admin/pesanan"
             className="text-xs font-bold text-blue-600 hover:text-blue-700 transition-smooth flex items-center gap-1 group"
           >
@@ -199,7 +198,7 @@ export default async function AdminDashboardPage() {
                       </span>
                     </td>
                     <td className="px-4 py-4 text-right">
-                      <Link 
+                      <Link
                         href={`/admin/pesanan/${order.id}`}
                         className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 font-bold transition-smooth group"
                       >
