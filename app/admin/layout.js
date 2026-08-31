@@ -32,7 +32,7 @@ export default async function AdminLayout({ children }) {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-gradient-to-br from-slate-50 to-slate-100 text-slate-900 antialiased font-sans">
-
+      
       {/* Sidebar Navigation - Desktop only, replaced by bottom tab bar on mobile */}
       <aside className="hidden md:flex md:w-64 bg-gradient-to-b from-slate-900 to-slate-950 text-white shrink-0 shadow-premium-lg border-r border-slate-800/50 flex-col justify-between">
         <div>
@@ -40,12 +40,12 @@ export default async function AdminLayout({ children }) {
           <div className="p-6 border-b border-slate-800/50 flex items-center justify-between group hover:bg-slate-800/30 transition-smooth">
             <span className="text-xl font-black tracking-tight text-white flex items-center gap-1 flex-wrap">
               {storeSettings?.store_name?.toUpperCase().split(' ').map((word, i) => (
-                i === storeSettings.store_name.split(' ').length - 1 ?
-                  <span key={i} className="text-blue-500 group-hover:text-blue-400 transition-smooth">{word}</span> :
+                i === storeSettings.store_name.split(' ').length - 1 ? 
+                  <span key={i} className="text-blue-500 group-hover:text-blue-400 transition-smooth">{word}</span> : 
                   <span key={i} className="group-hover:text-slate-200 transition-smooth">{word}</span>
               )) || (
-                  <>PINTU<span className="text-blue-500 group-hover:text-blue-400 transition-smooth">BESI</span></>
-                )}
+                <>PINTU<span className="text-blue-500 group-hover:text-blue-400 transition-smooth">BESI</span></>
+              )}
               <span className="text-[10px] bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-2 py-1 rounded font-extrabold ml-1 shadow-lg shadow-purple-500/20">ADMIN</span>
             </span>
           </div>
@@ -66,40 +66,40 @@ export default async function AdminLayout({ children }) {
 
           {/* Nav Links */}
           <nav className="p-4 space-y-1">
-            <Link
-              href="/admin"
+            <Link 
+              href="/admin" 
               className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 transition-smooth text-sm font-semibold text-slate-300 hover:text-white group"
             >
               <span className="text-xl group-hover:scale-110 transition-smooth">📊</span>
               <span>Dashboard</span>
             </Link>
-            <Link
-              href="/admin/produk"
+            <Link 
+              href="/admin/produk" 
               className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 transition-smooth text-sm font-semibold text-slate-300 hover:text-white group"
             >
               <span className="text-xl group-hover:scale-110 transition-smooth">🚪</span>
               <span>Kelola Produk</span>
             </Link>
-            <Link
-              href="/admin/kategori"
+            <Link 
+              href="/admin/kategori" 
               className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 transition-smooth text-sm font-semibold text-slate-300 hover:text-white group"
             >
               <span className="text-xl group-hover:scale-110 transition-smooth">📂</span>
               <span>Kelola Kategori</span>
             </Link>
-            <Link
-              href="/admin/pesanan"
+            <Link 
+              href="/admin/pesanan" 
               className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 transition-smooth text-sm font-semibold text-slate-300 hover:text-white group"
             >
               <span className="text-xl group-hover:scale-110 transition-smooth">📋</span>
               <span>Kelola Pesanan</span>
             </Link>
-
+            
             {/* Divider */}
             <div className="border-t border-slate-800/50 my-3"></div>
-
-            <Link
-              href="/admin/pengaturan"
+            
+            <Link 
+              href="/admin/pengaturan" 
               className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-600/20 transition-smooth text-sm font-semibold text-slate-300 hover:text-white bg-blue-600/10 border border-blue-500/20 group"
             >
               <span className="text-xl group-hover:scale-110 transition-smooth">⚙️</span>
@@ -110,8 +110,8 @@ export default async function AdminLayout({ children }) {
 
         {/* Footer & Logout Actions */}
         <div className="p-4 border-t border-slate-800/50 space-y-2">
-          <Link
-            href="/"
+          <Link 
+            href="/" 
             className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800/50 transition-smooth text-xs font-bold group"
           >
             <span className="group-hover:-translate-x-1 transition-smooth">←</span>
@@ -121,12 +121,9 @@ export default async function AdminLayout({ children }) {
             <button
               type="submit"
               aria-label="Keluar Panel"
-              className="w-full text-center px-4 py-3 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 transition-smooth text-white text-xs font-bold shadow-md shadow-red-500/20 hover:shadow-lg hover:shadow-red-500/30 flex items-center justify-center gap-2"
+              className="w-full text-center px-4 py-3 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 transition-smooth text-white text-xs font-bold shadow-md shadow-red-500/20 hover:shadow-lg hover:shadow-red-500/30"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-              <span>Logout</span>
+              🚪
             </button>
           </form>
         </div>
@@ -134,7 +131,7 @@ export default async function AdminLayout({ children }) {
 
       {/* Main Panel Content */}
       <div className="flex-1 flex flex-col min-h-screen overflow-x-hidden">
-
+        
         {/* Topbar Panel */}
         <header className="bg-white/95 backdrop-blur-xl border-b border-slate-200/80 h-16 flex items-center px-6 sm:px-8 justify-between shadow-premium sticky top-0 z-30 shrink-0">
           <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
@@ -156,17 +153,6 @@ export default async function AdminLayout({ children }) {
               >
                 🌐
               </Link>
-              <form action="/api/auth/logout" method="POST">
-                <button
-                  type="submit"
-                  aria-label="Keluar Panel"
-                  className="w-9 h-9 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition-smooth text-sm"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                  </svg>
-                </button>
-              </form>
             </div>
           </div>
         </header>
