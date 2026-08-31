@@ -131,13 +131,13 @@ export default function ImageCarousel({ slides = [], autoPlayMs = 4000 }) {
 
             {/* Dots */}
             {total > 1 && (
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                <div className="absolute top-3 right-3 flex gap-1.5 bg-black/30 backdrop-blur-sm px-3 py-2 rounded-full">
                     {slides.map((_, idx) => (
                         <button
                             key={idx}
                             onClick={() => { goTo(idx); resumeAutoplay() }}
                             aria-label={`Ke slide ${idx + 1}`}
-                            className={`h-1.5 rounded-full transition-all duration-300 ${idx === current ? 'w-6 bg-white' : 'w-1.5 bg-white/50 hover:bg-white/80'
+                            className={`h-1 rounded-full transition-all duration-300 ${idx === current ? 'w-3 bg-white' : 'w-1 bg-white/50 hover:bg-white/80'
                                 }`}
                         />
                     ))}
