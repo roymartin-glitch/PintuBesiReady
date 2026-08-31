@@ -86,7 +86,7 @@ export default function AdminOrderDetailPage() {
     cancelled: 'Dibatalkan',
   }
 
-  const waNumber = process.env.NEXT_PUBLIC_WA_NUMBER || '628123456789'
+  const waNumber = process.env.NEXT_PUBLIC_WA_NUMBER || '6285276358423'
   const clientWaUrl = order ? `https://wa.me/${order.customer_phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Halo ${order.customer_name}, kami dari Pintu Besi Shop ingin mengonfirmasi pesanan Anda dengan ID: #${order.id.slice(0, 8).toUpperCase()}...`)}` : '#'
 
   return (

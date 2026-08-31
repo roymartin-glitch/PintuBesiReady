@@ -9,7 +9,7 @@ function SuccessPageContent() {
   const searchParams = useSearchParams()
   const orderId = searchParams.get('order_id') || ''
 
-  const waNumber = process.env.NEXT_PUBLIC_WA_NUMBER || '628123456789'
+  const waNumber = process.env.NEXT_PUBLIC_WA_NUMBER || '6285276358423'
   const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(`Halo Admin Pintu Besi Shop, saya baru saja membuat pesanan dengan ID Order: *${orderId}*.\n\nMohon konfirmasi pesanan saya dan berikan petunjuk untuk langkah selanjutnya. Terima kasih.`)}`
 
   return (

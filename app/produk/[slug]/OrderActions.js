@@ -9,7 +9,7 @@ export default function OrderActions({ product }) {
   const supabase = createClient()
   const [qty, setQty] = useState(1)
   const [showSuccessMsg, setShowSuccessMsg] = useState(false)
-  const [waNumber, setWaNumber] = useState('628123456789')
+  const [waNumber, setWaNumber] = useState('6285276358423')
 
   // Fetch WhatsApp number from store settings
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function OrderActions({ product }) {
         setWaNumber(data.whatsapp_number)
       } else {
         // Fallback to env variable
-        setWaNumber(process.env.NEXT_PUBLIC_WA_NUMBER || '628123456789')
+        setWaNumber(process.env.NEXT_PUBLIC_WA_NUMBER || '6285276358423')
       }
     }
     fetchWaNumber()

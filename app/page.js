@@ -26,7 +26,7 @@ export default async function HomePage() {
   // Featured products (e.g. products with discount or first 4 products)
   const featuredProducts = latestProducts.slice(0, 4)
 
-  const waNumber = storeSettings?.whatsapp_number || process.env.NEXT_PUBLIC_WA_NUMBER || '628123456789'
+  const waNumber = storeSettings?.whatsapp_number || process.env.NEXT_PUBLIC_WA_NUMBER || '6285276358423'
 
   return (
     <>
@@ -52,13 +52,13 @@ export default async function HomePage() {
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
             <div className="lg:col-span-7 space-y-6 text-left animate-slide-up">
               <span className="inline-flex items-center gap-2 bg-blue-600/20 text-blue-400 border border-blue-500/30 text-xs px-4 py-2 rounded-full font-bold uppercase tracking-wider shadow-lg shadow-blue-500/10 hover:scale-105 transition-smooth">
-                🛡️ Proteksi Maksimal Properti Anda
+                🛡️ Keamanan & Kualitas Terjamin
               </span>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] text-white drop-shadow-lg">
-                {storeSettings?.store_tagline || 'Konstruksi Besi Kokoh, Presisi & Premium'}
+                {storeSettings?.store_tagline || 'Solusi Pintu Besi Berkualitas untuk Rumah & Bisnis Anda'}
               </h1>
               <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-xl">
-                {storeSettings?.store_description || 'Toko Pintu Besi menyediakan pintu garasi lipat, pintu pagar otomatis, teralis jendela, dan rolling door industrial berkualitas terbaik langsung dari pengrajin ahli dengan besi pilihan.'}
+                {storeSettings?.store_description || 'Kami menyediakan pintu garasi, pagar minimalis, rolling door, dan teralis berkualitas tinggi dengan desain modern. Dikerjakan oleh pengrajin profesional dengan material pilihan dan garansi resmi.'}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
@@ -66,15 +66,15 @@ export default async function HomePage() {
                   href="/produk"
                   className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-center text-white px-8 py-4 rounded-xl text-sm font-bold transition-smooth shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40 active:scale-95 hover:-translate-y-0.5"
                 >
-                  Jelajahi Katalog →
+                  Lihat Katalog Produk
                 </Link>
                 <a
-                  href={`https://wa.me/${waNumber}?text=Halo%20${encodeURIComponent(storeSettings?.store_name || 'Pintu Besi Shop')},%20saya%20tertarik%20untuk%20konsultasi%20pembuatan%20pintu%20besi...`}
+                  href={`https://wa.me/${waNumber}?text=Halo%20${encodeURIComponent(storeSettings?.store_name || 'Pintu Besi Shop')},%20saya%20ingin%20konsultasi%20produk%20pintu%20besi.%20Mohon%20info%20lebih%20lanjut.`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-slate-800 hover:bg-slate-750 border border-slate-700 text-center text-white px-8 py-4 rounded-xl text-sm font-bold transition-smooth active:scale-95 hover:border-slate-600 hover:-translate-y-0.5"
                 >
-                  💬 Konsultasi Gratis
+                  💬 Chat WhatsApp
                 </a>
               </div>
             </div>

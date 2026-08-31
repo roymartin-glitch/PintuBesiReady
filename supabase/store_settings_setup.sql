@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS public.store_settings (
   
   -- Kontak & Lokasi
   phone_number text,
-  whatsapp_number text DEFAULT '6281331941357',
+  whatsapp_number text DEFAULT '6285276358423',
   email text,
   address text,
   city text,
@@ -102,8 +102,8 @@ SELECT
   'Pintu Besi Shop',
   'Konstruksi Besi Kokoh, Presisi & Premium',
   'Toko Pintu Besi menyediakan pintu garasi lipat, pintu pagar otomatis, teralis jendela, dan rolling door industrial berkualitas terbaik langsung dari pengrajin ahli dengan besi pilihan.',
-  '6281331941357',
-  '0813-3194-1357',
+  '6285276358423',
+  '0852-7635-8423',
   'info@pintubesi.shop',
   'Jl. Industri Besi No. 123',
   'Jakarta',

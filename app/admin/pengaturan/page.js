@@ -256,7 +256,7 @@ export default function StoreSettingsPage() {
               <input
                 required
                 type="text"
-                placeholder="6281331941357 (format: 628xxx tanpa +)"
+                placeholder="6285276358423 (format: 628xxx tanpa +)"
                 value={form.whatsapp_number}
                 onChange={(e) => setForm({ ...form, whatsapp_number: e.target.value })}
                 className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition"

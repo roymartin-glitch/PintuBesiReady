@@ -19,7 +19,7 @@ function NavbarContent() {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false)
   const [storeSettings, setStoreSettings] = useState({
     store_name: 'Pintu Besi Shop',
-    whatsapp_number: '6281331941357'
+    whatsapp_number: '6285276358423'
   })
 
   const dropdownRef = useRef(null)
@@ -48,7 +48,7 @@ function NavbarContent() {
     async function getUser() {
       try {
         const { data: { user: currentUser }, error } = await supabase.auth.getUser()
-        
+
         if (error) {
           console.error('❌ Navbar auth error:', error)
           return
@@ -57,13 +57,13 @@ function NavbarContent() {
         if (currentUser) {
           console.log('✅ User detected in Navbar:', currentUser.email)
           setUser(currentUser)
-          
+
           const { data: currentProfile, error: profileError } = await supabase
             .from('profiles')
             .select('full_name, role')
             .eq('id', currentUser.id)
             .single()
-          
+
           if (profileError) {
             console.error('❌ Profile fetch error:', profileError)
           } else {
@@ -82,7 +82,7 @@ function NavbarContent() {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       console.log('🔄 Auth state changed:', event, session?.user?.email)
-      
+
       if (session?.user) {
         setUser(session.user)
         const { data: currentProfile } = await supabase
@@ -131,13 +131,13 @@ function NavbarContent() {
     <nav className="border-b border-slate-200/80 bg-white/95 backdrop-blur-xl sticky top-0 z-50 shadow-premium transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center gap-4 animate-fade-in">
-          
+
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0 group">
             <span className="text-2xl font-black text-slate-900 tracking-tight flex items-center transition-smooth">
               {storeSettings.store_name?.split(' ').map((word, i) => (
-                i === storeSettings.store_name.split(' ').length - 1 ? 
-                  <span key={i} className="text-blue-600 group-hover:text-blue-700 transition-smooth">{word}</span> : 
+                i === storeSettings.store_name.split(' ').length - 1 ?
+                  <span key={i} className="text-blue-600 group-hover:text-blue-700 transition-smooth">{word}</span> :
                   <span key={i} className="group-hover:text-slate-700 transition-smooth">{word}</span>
               ))}
               <span className="text-[10px] font-extrabold bg-gradient-to-br from-blue-500 to-blue-600 text-white px-1.5 py-0.5 rounded ml-2 shadow-sm group-hover:shadow-md group-hover:scale-105 transition-smooth">SHOP</span>
@@ -145,7 +145,7 @@ function NavbarContent() {
           </Link>
 
           {/* Desktop Search Bar */}
-          <form onSubmit={handleSearchSubmit} className="hidden md:flex flex-1 max-w-md relative group">
+          <form onSubmit={handleSearchSubmit} className="hidden lg:flex flex-1 max-w-md relative group">
             <input
               type="text"
               placeholder="Cari pintu pagar, garasi, teralis..."
@@ -161,7 +161,7 @@ function NavbarContent() {
           </form>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex gap-6 items-center text-sm animate-fade-in">
+          <div className="hidden lg:flex gap-6 items-center text-sm animate-fade-in">
             <Link href="/produk" className="font-semibold text-slate-600 hover:text-slate-900 transition-smooth relative group">
               <span>Katalog</span>
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
@@ -184,7 +184,7 @@ function NavbarContent() {
             {/* User Dropdown / Auth Link */}
             {user ? (
               <div className="relative" ref={dropdownRef}>
-                <button 
+                <button
                   onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
                   className="flex items-center gap-2 font-semibold text-slate-700 hover:text-slate-900 transition-smooth focus:outline-none p-2 hover:bg-slate-50 rounded-xl border border-transparent hover:border-slate-200 group"
                 >
@@ -205,16 +205,16 @@ function NavbarContent() {
                       <p className="text-xs text-slate-400 font-medium">Masuk sebagai</p>
                       <p className="text-sm font-bold text-slate-800 truncate mt-0.5">{profile?.full_name || user.email}</p>
                     </div>
-                    <Link 
-                      href="/dashboard" 
+                    <Link
+                      href="/dashboard"
                       onClick={() => setIsProfileDropdownOpen(false)}
                       className="flex items-center gap-2 px-4 py-2.5 text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-smooth text-sm font-medium"
                     >
                       <span className="text-lg">📊</span>
                       Dashboard Saya
                     </Link>
-                    <Link 
-                      href="/dashboard/profil" 
+                    <Link
+                      href="/dashboard/profil"
                       onClick={() => setIsProfileDropdownOpen(false)}
                       className="flex items-center gap-2 px-4 py-2.5 text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-smooth text-sm font-medium"
                     >
@@ -222,8 +222,8 @@ function NavbarContent() {
                       Ubah Profil
                     </Link>
                     {profile?.role === 'admin' && (
-                      <Link 
-                        href="/admin" 
+                      <Link
+                        href="/admin"
                         onClick={() => setIsProfileDropdownOpen(false)}
                         className="flex items-center gap-2 px-4 py-2.5 text-purple-700 hover:bg-purple-50 font-semibold transition-smooth border-t border-purple-50/50 text-sm"
                       >
@@ -257,7 +257,7 @@ function NavbarContent() {
           </div>
 
           {/* Mobile Menu Button & Cart icon */}
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             <Link href="/cart" className="relative p-2 text-slate-600 hover:text-slate-900 transition-smooth hover:bg-slate-100 rounded-xl group">
               <svg className="w-6 h-6 transition-transform group-hover:scale-110 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -290,7 +290,7 @@ function NavbarContent() {
 
       {/* Mobile Menu Panel */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-100 bg-white px-4 py-4 space-y-4 animate-slide-up shadow-lg">
+        <div className="lg:hidden border-t border-slate-100 bg-white px-4 py-4 space-y-4 animate-slide-up shadow-lg">
           <form onSubmit={handleSearchSubmit} className="flex relative">
             <input
               type="text"
@@ -307,8 +307,8 @@ function NavbarContent() {
           </form>
 
           <div className="flex flex-col gap-2 text-sm">
-            <Link 
-              href="/produk" 
+            <Link
+              href="/produk"
               onClick={() => setIsMobileMenuOpen(false)}
               className="flex items-center gap-2 font-semibold py-3 px-4 hover:bg-slate-50 rounded-xl text-slate-700 transition-smooth"
             >
@@ -318,16 +318,16 @@ function NavbarContent() {
 
             {user ? (
               <>
-                <Link 
-                  href="/dashboard" 
+                <Link
+                  href="/dashboard"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="flex items-center gap-2 font-semibold py-3 px-4 hover:bg-slate-50 rounded-xl text-slate-700 transition-smooth"
                 >
                   <span className="text-lg">📊</span>
                   Dashboard Saya
                 </Link>
-                <Link 
-                  href="/dashboard/profil" 
+                <Link
+                  href="/dashboard/profil"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="flex items-center gap-2 font-semibold py-3 px-4 hover:bg-slate-50 rounded-xl text-slate-700 transition-smooth"
                 >
@@ -335,8 +335,8 @@ function NavbarContent() {
                   Ubah Profil / Alamat
                 </Link>
                 {profile?.role === 'admin' && (
-                  <Link 
-                    href="/admin" 
+                  <Link
+                    href="/admin"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="flex items-center gap-2 font-semibold py-3 px-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl text-purple-700 border border-purple-100 transition-smooth"
                   >
@@ -357,15 +357,15 @@ function NavbarContent() {
               </>
             ) : (
               <div className="grid grid-cols-2 gap-3 pt-3 border-t">
-                <Link 
-                  href="/auth/login" 
+                <Link
+                  href="/auth/login"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="border border-slate-200 text-center py-3 rounded-xl font-semibold text-slate-700 hover:bg-slate-50 transition-smooth"
                 >
                   Masuk
                 </Link>
-                <Link 
-                  href="/auth/register" 
+                <Link
+                  href="/auth/register"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="bg-gradient-to-r from-blue-600 to-blue-700 text-center text-white py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 shadow-md shadow-blue-500/20 transition-smooth"
                 >
