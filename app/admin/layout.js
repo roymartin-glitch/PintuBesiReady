@@ -117,12 +117,7 @@ export default async function AdminLayout({ children }) {
             Lihat Website
           </Link>
           <form action="/api/auth/logout" method="POST" className="w-full">
-            <button
-              type="submit"
-              className="w-full text-center px-4 py-3 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 transition-smooth text-white text-xs font-bold shadow-md shadow-red-500/20 hover:shadow-lg hover:shadow-red-500/30"
-            >
 
-            </button>
           </form>
         </div>
       </aside>
