@@ -62,13 +62,6 @@ export default async function HomePage() {
 
       <main className="flex-1 bg-gradient-to-b from-slate-50 to-white">
 
-        {/* Sliding Promo Banner (ad-style carousel) */}
-        {carouselSlides.length > 0 && (
-          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-            <ImageCarousel slides={carouselSlides} autoPlayMs={4000} />
-          </section>
-        )}
-
         {/* Banner Hero */}
         <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white py-20 md:py-32 px-4 shadow-premium-lg animate-fade-in">
           {/* Decorative Background Accents - Enhanced */}
@@ -151,6 +144,13 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Sliding Promo Banner (ad-style carousel) */}
+        {carouselSlides.length > 0 && (
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 -mb-6">
+            <ImageCarousel slides={carouselSlides} autoPlayMs={4000} />
+          </section>
+        )}
 
         {/* Categories Section */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-fade-in">
