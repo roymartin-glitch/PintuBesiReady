@@ -3,6 +3,7 @@ import { getStoreSettings } from '@/lib/supabase/getStoreSettings'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import ImageCarousel from '@/components/ImageCarousel'
 
 export default async function HomePage() {
   const supabase = createClient()
@@ -28,25 +29,58 @@ export default async function HomePage() {
 
   const waNumber = storeSettings?.whatsapp_number || process.env.NEXT_PUBLIC_WA_NUMBER || '6285276358423'
 
+  // Build banner slides from products that actually have photos (discounted ones first)
+  const productsWithImages = latestProducts.filter((p) => p.product_images?.length > 0)
+  const sortedForBanner = [...productsWithImages].sort((a, b) => {
+    const aDisc = a.discount_price && a.discount_price > a.price ? 1 : 0
+    const bDisc = b.discount_price && b.discount_price > b.price ? 1 : 0
+    return bDisc - aDisc
+  })
+
+  const carouselSlides = sortedForBanner.slice(0, 5).map((product) => {
+    const primaryImage =
+      product.product_images?.find((img) => img.is_primary)?.image_url ||
+      product.product_images?.[0]?.image_url
+    const discount =
+      product.discount_price && product.discount_price > product.price
+        ? Math.round(((product.discount_price - product.price) / product.discount_price) * 100)
+        : product.discount_percentage || 0
+
+    return {
+      image: primaryImage,
+      title: product.name,
+      subtitle: `Rp ${Number(product.price).toLocaleString('id-ID')}${product.size ? ' • ' + product.size : ''}`,
+      badge: discount > 0 ? `DISKON ${discount}%` : null,
+      link: `/produk/${product.slug}`,
+    }
+  })
+
   return (
     <>
       {/* Global Navbar */}
       <Navbar />
 
       <main className="flex-1 bg-gradient-to-b from-slate-50 to-white">
-        
+
+        {/* Sliding Promo Banner (ad-style carousel) */}
+        {carouselSlides.length > 0 && (
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+            <ImageCarousel slides={carouselSlides} autoPlayMs={4000} />
+          </section>
+        )}
+
         {/* Banner Hero */}
         <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white py-20 md:py-32 px-4 shadow-premium-lg animate-fade-in">
           {/* Decorative Background Accents - Enhanced */}
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-blue-600/15 to-purple-600/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3 animate-pulse"></div>
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-slate-500/10 to-blue-500/5 rounded-full blur-2xl pointer-events-none translate-y-1/3 -translate-x-1/4"></div>
-          
+
           {/* Animated Dots Pattern */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-10 left-10 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-            <div className="absolute top-20 right-20 w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-            <div className="absolute bottom-20 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-            <div className="absolute bottom-40 right-1/3 w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '1.5s'}}></div>
+            <div className="absolute top-20 right-20 w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+            <div className="absolute bottom-20 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute bottom-40 right-1/3 w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
           </div>
 
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
@@ -60,7 +94,7 @@ export default async function HomePage() {
               <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-xl">
                 {storeSettings?.store_description || 'Kami menyediakan pintu garasi, pagar minimalis, rolling door, dan teralis berkualitas tinggi dengan desain modern. Dikerjakan oleh pengrajin profesional dengan material pilihan dan garansi resmi.'}
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
                 <Link
                   href="/produk"
@@ -80,7 +114,7 @@ export default async function HomePage() {
             </div>
 
             {/* Industrial Design Mock Illustration Card */}
-            <div className="lg:col-span-5 hidden lg:block animate-scale-in" style={{animationDelay: '0.2s'}}>
+            <div className="lg:col-span-5 hidden lg:block animate-scale-in" style={{ animationDelay: '0.2s' }}>
               <div className="bg-slate-900/60 border border-slate-800/80 p-8 rounded-3xl backdrop-blur-md shadow-premium-lg relative hover-lift group">
                 <div className="absolute -top-3 -left-3 bg-gradient-to-r from-blue-600 to-blue-700 text-xs px-3 py-1.5 rounded-lg font-bold shadow-lg shadow-blue-500/30 flex items-center gap-1 animate-pulse">
                   ⭐ BEST SELLER
@@ -131,7 +165,7 @@ export default async function HomePage() {
                 key={cat.id}
                 href={`/kategori/${cat.slug}`}
                 className="group card-premium p-6 text-center hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50 transition-smooth flex flex-col items-center justify-center min-h-[150px] animate-scale-in"
-                style={{animationDelay: `${idx * 0.1}s`}}
+                style={{ animationDelay: `${idx * 0.1}s` }}
               >
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 text-blue-600 flex items-center justify-center text-2xl mb-4 group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white transition-smooth group-hover:scale-110 shadow-md group-hover:shadow-lg">
                   {cat.slug === 'pintu-pagar' && '柵'}
@@ -160,7 +194,7 @@ export default async function HomePage() {
                 <p className="text-slate-500 text-sm sm:text-base">Produk-produk dengan konstruksi terbaik dan diskon menarik.</p>
               </div>
               <Link href="/produk" className="text-sm font-bold text-blue-600 hover:text-blue-700 hover:underline shrink-0 flex items-center gap-1 transition-smooth group">
-                Lihat Semua 
+                Lihat Semua
                 <span className="text-xs group-hover:translate-x-1 transition-smooth">→</span>
               </Link>
             </div>
@@ -181,7 +215,7 @@ export default async function HomePage() {
                     key={product.id}
                     href={`/produk/${product.slug}`}
                     className="card-premium overflow-hidden hover-lift flex flex-col relative group animate-scale-in cursor-pointer"
-                    style={{animationDelay: `${idx * 0.1}s`}}
+                    style={{ animationDelay: `${idx * 0.1}s` }}
                   >
                     {/* Badge Discount */}
                     {discount > 0 && (
@@ -203,7 +237,7 @@ export default async function HomePage() {
                           <span className="text-[10px] uppercase font-bold text-slate-400">Belum Ada Foto</span>
                         </div>
                       )}
-                      
+
                       {/* Hover Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-smooth flex items-end justify-center pb-4 pointer-events-none">
                         <span className="text-white text-xs font-bold flex items-center gap-1">
@@ -214,7 +248,7 @@ export default async function HomePage() {
                           Lihat Detail
                         </span>
                       </div>
-                      
+
                       {/* Out of Stock Overlay */}
                       {product.stock <= 0 && (
                         <div className="absolute inset-0 bg-white/90 backdrop-blur-sm flex items-center justify-center z-10 pointer-events-none">
@@ -270,11 +304,11 @@ export default async function HomePage() {
             {/* Enhanced Background Effects */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
             <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-indigo-500/20 rounded-full blur-2xl pointer-events-none translate-y-1/3 -translate-x-1/4"></div>
-            
+
             {/* Animated Icons */}
             <div className="absolute top-5 right-10 text-white/10 text-6xl animate-pulse">💬</div>
-            <div className="absolute bottom-5 left-10 text-white/10 text-5xl animate-pulse" style={{animationDelay: '1s'}}>🔧</div>
-            
+            <div className="absolute bottom-5 left-10 text-white/10 text-5xl animate-pulse" style={{ animationDelay: '1s' }}>🔧</div>
+
             <div className="relative z-10 max-w-2xl text-center md:text-left space-y-4">
               <div className="inline-flex items-center gap-2 bg-white/20 border border-white/30 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-2">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
