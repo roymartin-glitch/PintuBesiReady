@@ -60,10 +60,13 @@ export default async function HomePage() {
       {/* Global Navbar */}
       <Navbar />
 
-      <main className="flex-1 bg-gradient-to-b from-slate-50 to-white">
+      <main className="flex-1 bg-[#f6f9fc]">
 
         {/* Banner Hero */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white py-20 md:py-32 px-4 shadow-premium-lg animate-fade-in">
+        <section className="industrial-bg relative overflow-hidden text-white py-20 md:py-32 px-4 shadow-premium-lg animate-fade-in">
+          <div className="hero-orb -top-24 right-0" />
+          <div className="hero-orb bottom-[-12rem] left-[-10rem]" style={{ animationDelay: '-6s' }} />
+
           {/* Decorative Background Accents - Enhanced */}
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-blue-600/15 to-purple-600/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3 animate-pulse"></div>
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-slate-500/10 to-blue-500/5 rounded-full blur-2xl pointer-events-none translate-y-1/3 -translate-x-1/4"></div>
@@ -108,7 +111,7 @@ export default async function HomePage() {
 
             {/* Industrial Design Mock Illustration Card */}
             <div className="lg:col-span-5 hidden lg:block animate-scale-in" style={{ animationDelay: '0.2s' }}>
-              <div className="bg-slate-900/60 border border-slate-800/80 p-8 rounded-3xl backdrop-blur-md shadow-premium-lg relative hover-lift group">
+              <div className="glass-premium p-8 rounded-3xl relative hover-lift group">
                 <div className="absolute -top-3 -left-3 bg-gradient-to-r from-blue-600 to-blue-700 text-xs px-3 py-1.5 rounded-lg font-bold shadow-lg shadow-blue-500/30 flex items-center gap-1 animate-pulse">
                   ⭐ BEST SELLER
                 </div>
@@ -300,7 +303,7 @@ export default async function HomePage() {
 
         {/* WhatsApp CTA Banner */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-fade-in">
-          <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 text-white rounded-3xl p-8 md:p-12 shadow-premium-lg hover-lift flex flex-col md:flex-row justify-between items-center gap-8 relative overflow-hidden">
+          <div className="industrial-bg bg-gradient-to-r from-[#0b1f3a] via-[#1558c0] to-[#123c78] text-white rounded-3xl p-8 md:p-12 shadow-premium-lg hover-lift flex flex-col md:flex-row justify-between items-center gap-8 relative overflow-hidden">
             {/* Enhanced Background Effects */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
             <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-indigo-500/20 rounded-full blur-2xl pointer-events-none translate-y-1/3 -translate-x-1/4"></div>

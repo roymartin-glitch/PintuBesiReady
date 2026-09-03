@@ -7,7 +7,7 @@ export default async function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-gradient-to-b from-slate-900 to-slate-950 text-slate-300 border-t border-slate-800/50">
+    <footer className="industrial-bg bg-gradient-to-b from-[#07111f] to-[#050b16] text-slate-300 border-t border-blue-400/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-fade-in">
         
         {/* Main Footer Content */}

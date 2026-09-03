@@ -128,7 +128,7 @@ function NavbarContent() {
   }
 
   return (
-    <nav className="border-b border-slate-200/80 bg-white/95 backdrop-blur-xl sticky top-0 z-50 shadow-premium transition-all duration-300">
+    <nav className="border-b border-slate-200/80 bg-white/90 backdrop-blur-xl sticky top-0 z-50 shadow-[0_8px_30px_rgba(7,17,31,0.06)] transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center gap-4 animate-fade-in">
 

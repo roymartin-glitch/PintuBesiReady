@@ -55,7 +55,7 @@ export default function ImageCarousel({ slides = [], autoPlayMs = 4000 }) {
 
     return (
         <div
-            className="relative w-full overflow-hidden rounded-3xl shadow-premium-lg group"
+            className="relative w-full overflow-hidden rounded-2xl shadow-[0_22px_55px_rgba(7,17,31,0.16)] ring-1 ring-slate-900/5 group"
             onMouseEnter={pauseAutoplay}
             onMouseLeave={resumeAutoplay}
             onTouchStart={handleTouchStart}

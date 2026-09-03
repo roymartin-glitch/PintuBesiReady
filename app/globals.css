@@ -431,8 +431,101 @@ a:focus-visible {
    ============================================ */
 
 @media (prefers-color-scheme: dark) {
-  /* Can be enabled later if needed */
-  /* body {
-    @apply bg-slate-900 text-slate-100;
-  } */
+}
+
+:root {
+  --navy-950: #050b16;
+  --navy-900: #07111f;
+  --navy-800: #0b1f3a;
+  --royal-blue: #1558c0;
+  --electric-blue: #2d8cff;
+  --cyan-accent: #55d8ff;
+}
+
+body {
+  background: #f6f9fc;
+  background-image: radial-gradient(circle at 8% 12%, rgba(45, 140, 255, 0.07), transparent 28rem), radial-gradient(circle at 92% 38%, rgba(21, 88, 192, 0.05), transparent 26rem);
+}
+
+.industrial-bg {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(135deg, #07111f 0%, #0b1f3a 45%, #123c78 100%);
+}
+
+.industrial-bg::before,
+.industrial-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.industrial-bg::before {
+  background-image: linear-gradient(rgba(125, 190, 255, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(125, 190, 255, 0.055) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+.industrial-bg::after {
+  background: radial-gradient(circle at 76% 24%, rgba(45, 140, 255, 0.23), transparent 25%), radial-gradient(circle at 18% 88%, rgba(85, 216, 255, 0.1), transparent 26%);
+  animation: ambientGlow 14s ease-in-out infinite alternate;
+}
+
+.hero-orb {
+  position: absolute;
+  width: 28rem;
+  height: 28rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(45, 140, 255, 0.2), transparent 68%);
+  filter: blur(8px);
+  animation: ambientFloat 16s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.glass-premium {
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 24px 70px rgba(1, 10, 25, 0.28), inset 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.text-gradient {
+  background-image: linear-gradient(110deg, #ffffff 15%, #a9d6ff 58%, #55d8ff 100%);
+}
+
+.btn-primary {
+  background-image: linear-gradient(120deg, #1558c0, #2478e8 58%, #2d8cff);
+  box-shadow: 0 12px 28px rgba(21, 88, 192, 0.24);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 14px 34px rgba(45, 140, 255, 0.32);
+  transform: translateY(-1px);
+}
+
+.card-premium {
+  border-radius: 1rem;
+  box-shadow: 0 8px 28px rgba(15, 35, 65, 0.07);
+}
+
+.card-premium:hover {
+  border-color: rgba(45, 140, 255, 0.35);
+  box-shadow: 0 16px 34px rgba(21, 88, 192, 0.12);
+}
+
+@keyframes ambientGlow {
+  0% { transform: translate3d(-2%, -1%, 0) scale(1); opacity: .7; }
+  100% { transform: translate3d(2%, 1%, 0) scale(1.08); opacity: 1; }
+}
+
+@keyframes ambientFloat {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-24px, 18px, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .industrial-bg::after, .hero-orb { animation: none; }
 }
